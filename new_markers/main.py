@@ -36,6 +36,7 @@ color_break = cv2.imread(mypath+name_image_break)
 
 print("Press ENTER to begin")
 input()
+init_time = time.time()
 begin = True
 for image in color_images:
 
@@ -68,5 +69,9 @@ for image in color_images:
         if (now_break - now)>2:
             print('time during break image was {}'.format(now_break-now))
             break
+
+final_time = time.time()
+elapsed_time = final_time-init_time
+print('total time was {}'.format(elapsed_time))
 
 
