@@ -18,12 +18,11 @@ names_colors = sorted(onlyfiles)
 name_image_break = names_colors.pop(-1)
 
 # time in miliseconds
+time_begin = 5000
 time_color = 1000
 time_break = 2000
 
 # cicle to show fullscreen imagens with the right times
-
-
 
 color_images = []
 for name_color in names_colors:
@@ -37,21 +36,37 @@ color_break = cv2.imread(mypath+name_image_break)
 
 print("Press ENTER to begin")
 input()
-
+begin = True
 for image in color_images:
+
+    if begin == True:
+        now = time.time()
+        while True:
+            imshow_fullscreen ('screen', color_break)
+            cv2.waitKey(1)
+            now_begin = time.time()
+            if (now_begin - now)>5:
+                begin=False
+                print('time during begin was {}'.format(now_begin-now))
+                break
+
     # color
     now = time.time()
-    imshow_fullscreen ('screen', image)
-    cv2.waitKey(time_color)
-    now2 = time.time()
-    print('time during color image was {}'.format(now2-now))
+    while True:
+        imshow_fullscreen ('screen', image)
+        cv2.waitKey(1)
+        now_color = time.time()
+        if (now_color - now)>1:
+            print('time during color image was {}'.format(now_color-now))
+            break
 
-    # break
-    imshow_fullscreen ('screen', color_break)
-    key = cv2.waitKey(time_break)
-    print('time during break image was {}'.format(time.time()-now2))
+    now = time.time()
+    while True:
+        imshow_fullscreen ('screen', color_break)
+        cv2.waitKey(1)
+        now_break = time.time()
+        if (now_break - now)>2:
+            print('time during break image was {}'.format(now_break-now))
+            break
 
-    if key == 27:#if ESC is pressed, exit loop
-        cv2.destroyAllWindows()
-        break
 
